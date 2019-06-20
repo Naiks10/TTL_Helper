@@ -1,2 +1,10 @@
+<<<<<<< HEAD
 
 *.exe
+=======
+P1.exe
+.vscode/launch.json
+.vscode/tasks.json
+
+win32/bin/Debug/
+>>>>>>> b6d4ea1576768ac07f153b270301f1b369abca90
