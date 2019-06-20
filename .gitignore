@@ -1,0 +1,5 @@
+P1.exe
+.vscode/launch.json
+.vscode/tasks.json
+
+win32/bin/Debug/
