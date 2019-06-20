@@ -1,10 +1,12 @@
 package main
 
 import (
+	"io/ioutil"
 	"net/url"
 	"os"
 	"runtime"
 	"strconv"
+	"strings"
 
 	"fyne.io/fyne"
 
@@ -52,10 +54,15 @@ func main() {
 				if runtime.GOOS == "windows" {
 					setTTLWin32(w, ttl32)
 				} else {
+					//хз должно работать
+					err := ioutil.WriteFile("/etc/sysctl.conf", []byte("net.inet.ip.ttl="+string(ttl32)+"\n"), 0777)
 
+					if err != nil {
+						dialog.ShowError(err, w)
+					}
 				}
+				ttlLabel.SetText("Current TTL - " + getCurrentTTL(w))
 			}
-			ttlLabel.SetText("Current TTL - " + getCurrentTTL(w))
 		}),
 		widget.NewButton("Quit", func() {
 			app.Quit()
@@ -86,7 +93,16 @@ func getCurrentTTL(w fyne.Window) string {
 		a = strconv.FormatUint(s, 10)
 		k.Close()
 	} else {
+		data, err := ioutil.ReadFile("/etc/sysctl.conf")
 
+		if err != nil {
+			dialog.ShowError(err, w)
+		} else {
+			text := string(data)
+			itt := strings.Index(text, "ttl")
+			inewline := strings.Index(text[itt:len(text)], "\n")
+			a = text[itt+3 : inewline]
+		}
 	}
 	return a
 }
