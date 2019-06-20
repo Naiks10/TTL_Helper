@@ -27,17 +27,17 @@ func main() {
 		var variant int
 		fmt.Scan(&variant)
 		switch variant {
-		case 1:
-			fmt.Println("Значение TTL:")
-			var ttl uint32
-			fmt.Scan(&ttl)
-			k.SetDWordValue("DefaultTTL", ttl)
-			k, err = registry.OpenKey(registry.LOCAL_MACHINE, `SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters`, registry.ALL_ACCESS)
-			k.SetDWordValue("DefaultTTL", ttl)
-		case 2:
-			fmt.Println("Операция отменена")
-		default:
-			fmt.Println("Ошибка!!!")
+			case 1:
+				fmt.Println("Значение TTL:")
+				var ttl uint32
+				fmt.Scan(&ttl)
+				k.SetDWordValue("DefaultTTL", ttl)
+				k, err = registry.OpenKey(registry.LOCAL_MACHINE, `SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters`, registry.ALL_ACCESS)
+				k.SetDWordValue("DefaultTTL", ttl)
+			case 2:
+				fmt.Println("Операция отменена")
+			default:
+				fmt.Println("Ошибка!!!")
 		}
 		k.Close()
 	}
