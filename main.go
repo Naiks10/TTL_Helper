@@ -31,9 +31,6 @@ func main() {
 	var ttlLabel = widget.NewLabel("Current TTL - " + getCurrentTTL(w))
 
 	var u, err = url.Parse("http://ttlhelper.github.io")
-	if err != nil {
-		dialog.ShowError(err, w)
-	}
 
 	w.SetContent(widget.NewVBox(
 		logo,
@@ -66,6 +63,10 @@ func main() {
 	w.SetFixedSize(true)
 	w.SetIcon(fyne.NewStaticResource("logo_", logoBytes))
 	w.CenterOnScreen()
+
+	if err != nil {
+		dialog.ShowError(err, w)
+	}
 
 	w.ShowAndRun()
 }
