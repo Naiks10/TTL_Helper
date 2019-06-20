@@ -11,14 +11,12 @@ func main() {
 	k, err := registry.OpenKey(registry.LOCAL_MACHINE, `SYSTEM\CurrentControlSet\Services\Tcpip\Parameters`, registry.ALL_ACCESS)
 	if err != nil {
 		fmt.Println(" У вас нет прав администратора перезапустите приложение")
-		//log.Fatal(err)
 	} else {
 		defer k.Close()
 		//Обращение к параметру DefaultTTL
 		s, _, err := k.GetIntegerValue("DefaultTTL")
 		// Если ошибка есть
 		if err != nil {
-			//log.Fatal(err)
 			fmt.Println(" DefaultTTL : 128\n Желаете изменить TTL?\n 1) Да\n 2) Нет")
 		} else {
 			var a string = strconv.FormatUint(s, 10)
