@@ -59,6 +59,8 @@ func main() {
 
 					if err != nil {
 						dialog.ShowError(err, w)
+					} else {
+						dialog.ShowInformation("Info", "TTL on your device was changed", w)
 					}
 				}
 				ttlLabel.SetText("Current TTL - " + getCurrentTTL(w))
